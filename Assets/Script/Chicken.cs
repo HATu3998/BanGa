@@ -23,8 +23,17 @@ public class Chicken : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(Random.Range(4, 20));
             Instantiate(EggPretabs, transform.position, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(2, 7));
+           
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Bullet"))
+        {
+            Destroy(gameObject);
         }
     }
 }

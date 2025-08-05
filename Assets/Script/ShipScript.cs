@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,9 +8,11 @@ public class ShipScript : MonoBehaviour
   [SerializeField]  private float speed;
     [SerializeField] private GameObject[] BulletList;
     [SerializeField] private int CurrentTierBullet;
+    [SerializeField] private GameObject VFX;
+    [SerializeField] private GameObject Shield;
      void Start()
     {
-        
+        StartCoroutine(DisableShield());
     }
 
     // Update is called once per frame
@@ -34,5 +37,28 @@ public class ShipScript : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         Instantiate(BulletList[CurrentTierBullet], transform.position, Quaternion.identity);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+       
+        if(!Shield.activeSelf && (collision.CompareTag("Chicken") || collision.CompareTag("Egg")))
+        {
+            Destroy(gameObject);
+        }
+    }
+    IEnumerator DisableShield()
+    {
+        yield return new WaitForSeconds(8);
+        Shield.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (gameObject.scene.isLoaded)
+        {
+        var vfx=    Instantiate(VFX, transform.position, Quaternion.identity);
+            Destroy(vfx, 1f);
+            ShipController.Instance.SpawnShip();
+        }
     }
 }

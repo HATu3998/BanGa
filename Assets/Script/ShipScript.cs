@@ -10,6 +10,7 @@ public class ShipScript : MonoBehaviour
     [SerializeField] private int CurrentTierBullet;
     [SerializeField] private GameObject VFX;
     [SerializeField] private GameObject Shield;
+    [SerializeField] private int ScoreOfChickenLeg;
      void Start()
     {
         StartCoroutine(DisableShield());
@@ -44,6 +45,10 @@ public class ShipScript : MonoBehaviour
         if(!Shield.activeSelf && (collision.CompareTag("Chicken") || collision.CompareTag("Egg")))
         {
             Destroy(gameObject);
+        }if(collision.CompareTag("chicken leg"))
+        {
+            Destroy(collision.gameObject);
+            ScoreController.instance.GetScore(ScoreOfChickenLeg);
         }
     }
     IEnumerator DisableShield()

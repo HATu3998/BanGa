@@ -5,7 +5,9 @@ public class Chicken : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] private GameObject EggPretabs;
-    void Start()
+    [SerializeField] private int score;
+    [SerializeField] private GameObject chickenLegPreFaps;
+   void Start()
     {
         
     }
@@ -33,6 +35,9 @@ public class Chicken : MonoBehaviour
     {
         if (collision.CompareTag("Bullet"))
         {
+            ScoreController.instance.GetScore(score);
+            Instantiate(chickenLegPreFaps, transform.position, Quaternion.identity);
+            Destroy(collision.gameObject);
             Destroy(gameObject);
         }
     }

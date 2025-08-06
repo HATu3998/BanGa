@@ -199,3 +199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EggPretabs: {fileID: 4435463698459963797, guid: 2186294ebb249bd4987ac574ea436590, type: 3}
+  score: 100
+  chickenLegPreFaps: {fileID: 4011637476522001778, guid: 5d9a1e5959020594b8a8d074350cb0d7, type: 3}

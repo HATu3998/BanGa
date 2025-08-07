@@ -8,8 +8,15 @@ public class Spawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private float gridSize = 1;
     private Vector3 SpawnPos;
+    private int ChickenCurrent;
     [SerializeField] private GameObject ChickenPretabs;
     [SerializeField] private Transform GridChicken;
+    [SerializeField] private GameObject Boss;
+    public static Spawner Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -32,6 +39,7 @@ public class Spawner : MonoBehaviour
                 SpawnPos.x = SpawnPos.x + gridSize;
                 GameObject Chicken = Instantiate(ChickenPretabs, SpawnPos, Quaternion.identity);
                 Chicken.transform.parent = GridChicken;
+                ChickenCurrent++;
             }
             SpawnPos.x = x;
             SpawnPos.y -= gridSize;
@@ -39,5 +47,13 @@ public class Spawner : MonoBehaviour
 
         // Update is called once per frame
        
+    }
+    public void DecreaChicken()
+    {
+        ChickenCurrent--;
+        if(ChickenCurrent <= 0)
+        {
+            Boss.gameObject.SetActive(true);
+        }
     }
 }

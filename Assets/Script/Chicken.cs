@@ -41,4 +41,8 @@ public class Chicken : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnDestroy()
+    {
+        Spawner.Instance.DecreaChicken();
+    }
 }
